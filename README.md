@@ -5,7 +5,7 @@
 
 This repo contains a [stb-style](https://github.com/nothings/stb/blob/master/docs/stb_howto.txt) header only library. All you need is [bencode.h](https://github.com/hughdavenport/bencode.h/raw/refs/heads/main/bencode.h).
 
-[Bencode](https://en.wikipedia.org/wiki/Bencode) is used in the bittorrent protocol, and is defined as part of [BEP3](https://www.bittorrent.org/beps/bep_0003.html).
+[Bencode encoding](https://en.wikipedia.org/wiki/Bencode) is used in the bittorrent protocol, and is defined as part of [BEP3](https://www.bittorrent.org/beps/bep_0003.html).
 
     - Strings are length-prefixed base ten followed by a colon and the string. For example 4:spam corresponds to
       'spam'.
