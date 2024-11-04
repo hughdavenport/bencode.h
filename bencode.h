@@ -25,9 +25,9 @@ SOFTWARE.
 #ifndef BENCODE_H
 #define BENCODE_H
 
-#define BENCODE_H_VERSION_MAJOR 1
+#define BENCODE_H_VERSION_MAJOR 2
 #define BENCODE_H_VERSION_MINOR 0
-#define BENCODE_H_VERSION_PATCH 1
+#define BENCODE_H_VERSION_PATCH 0
 
 #include <stddef.h>
 #include <stdint.h>
@@ -327,6 +327,7 @@ BencodedValue *decode_bencoded_file(const char* fname) {
 
     ret = decode_bencoded_bytes(data, data + fsize);
 end:
+    if (data) free(data);
     if (f) fclose(f);
     return ret;
 }
