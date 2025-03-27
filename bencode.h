@@ -27,7 +27,7 @@ SOFTWARE.
 
 #define BENCODE_H_VERSION_MAJOR 3
 #define BENCODE_H_VERSION_MINOR 0
-#define BENCODE_H_VERSION_PATCH 1
+#define BENCODE_H_VERSION_PATCH 2
 
 #include <stddef.h>
 #include <stdint.h>
@@ -308,6 +308,7 @@ BencodedValue *decode_bencoded_bytes(const uint8_t* bencoded_value, const uint8_
 
 BencodedValue *decode_bencoded_file(const char* fname, bool keep_memory) {
     BencodedValue *ret = NULL;
+    uint8_t *data = NULL;
     FILE *f = fopen(fname, "rb");
     if (f == NULL) goto end;
 
@@ -316,7 +317,8 @@ BencodedValue *decode_bencoded_file(const char* fname, bool keep_memory) {
     if (fsize < 0) goto end;
     if (fseek(f, 0, SEEK_SET) != 0) goto end;
 
-    uint8_t *data = (uint8_t *)malloc(fsize + 1);
+    data = (uint8_t *)malloc(fsize + 1);
+    if (data == NULL) goto end;
     size_t read_total = 0;
     while (read_total < (unsigned)fsize) {
         size_t read_count = fread(data, 1, fsize, f);
@@ -327,7 +329,7 @@ BencodedValue *decode_bencoded_file(const char* fname, bool keep_memory) {
 
     ret = decode_bencoded_bytes(data, data + fsize);
 end:
-    if ((ret == NULL || !keep_memory) && data) free(data);
+    if ((ret == NULL || !keep_memory) && data != NULL) free(data);
     if (f) fclose(f);
     return ret;
 }

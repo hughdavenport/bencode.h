@@ -1,7 +1,7 @@
 #define BENCODE_IMPLEMENTATION
 #include "bencode.h"
 
-int main() {
+int main(void) {
     char *encoded = "d8:greetingl5:hello5:worldee";
     BencodedValue *value = decode_bencoded_bytes((uint8_t *)encoded, NULL);
     print_bencoded_value(value, (BencodedPrintConfig){0});
